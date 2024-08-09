@@ -1,0 +1,50 @@
+%%AMC:preprocess_command=./prePythonTex4AMC
+%%AMC:jobspecific=1
+%%AMC:latex_engine=pdflatex --shell-escape
+
+\documentclass[a4paper]{article}
+
+\usepackage[utf8x]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{fp}
+
+\usepackage[box,completemulti,insidebox,lang=EN]{automultiplechoice}
+\usepackage{multicol}
+
+\usepackage{listings}
+\lstset{language=C, numbers=left, frame=single, basicstyle=\ttfamily}
+
+\usepackage[gobble=auto]{pythontex}
+\begin{pycode}
+import random;
+random.seed(1337);
+\end{pycode}
+
+\AMCrandomseed{1337}
+
+
+\geometry{hmargin=1.5cm,headheight=2cm,headsep=.3cm,footskip=1cm,top=2.5cm,bottom=2cm}
+
+
+
+\begin{document}
+
+
+\scoringDefaultM{mz = 1}
+\scoringDefaultS{mz = 1}
+
+\AMCsetScoreZone{width=1em,height=1ex,depth=.5ex,position=question}
+\scoringDefaultM{b=0,m=0,MAX=1}
+
+\input{header}
+\input{question-bank}
+\input{questions}
+
+\onecopy{10}{
+
+\header{Example}
+\insertgroup{architecture}
+
+}
+
+\end{document}

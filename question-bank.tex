@@ -1,0 +1,127 @@
+%%%% Multiple Choice Questions
+
+\element{basic-amdahl}{
+ \begin{question}{amdahl1}
+ If a program spends 60\% of its time executing multiplication instructions, how much faster do the multiplication instructions need to be for the program to run 2 times faster?
+  \begin{choices}
+   \correctchoice{6x faster.} \scoring{1}
+   \wrongchoice{3x faster.}
+   \wrongchoice{12x faster.}
+   \wrongchoice{It is not possible to achieve the desired performance by optimizing only the multiplication instructions.}
+   \wrongchoice{It is not possible to determine the answer with the given information.}
+  \end{choices}
+ \end{question}
+}
+
+\element{basic-short}{
+  \begin{question}{reg-bits}
+     How many bits are needed to address a register in the RISC-V register file?
+    \begin{choiceshoriz}
+      \correctchoice[5]{}
+      \wrongchoice[16]{}
+      \wrongchoice[32]{}
+      \wrongchoice[6]{}
+      \wrongchoice[8]{}
+    \end{choiceshoriz}
+  \end{question}
+}
+
+%%%% Simple Numeric Question
+
+\element{num-fp}{
+    \begin{questionmultx}{fpcv1}
+      Convert the number 0xc0980000 from single-precision floating-point representation to decimal.
+      \begin{center}
+    \AMCnumericChoices{-4.75}{sign=true,vertical=true,base=10,digits=4,decimals=2,scoreexact=1}
+    \end{center}
+    \end{questionmultx}
+}
+
+%%%% Numeric Question with Randomization and FP calculations
+
+\element{cache-dm-address}{
+
+\FPeval{\blp}{round(random*4+1,0)}
+\FPeval{\blw}{round(2^\blp,0)}
+\FPeval{\ccp}{trunc(\blp+random*4+4,0)}
+\FPeval{\ccb}{round(2^\ccp,0)}
+\FPeval{\idx}{round(\ccp-\blp-2,0)}
+\FPeval{\off}{round(\blp+2,0)}
+\FPeval{\tag}{round(32-\off-\idx,0)}
+
+\begin{questionmultx}{indexsize} 
+    Consider an architecture with 32-bit words and a direct-mapped L1 data cache with \ccb{} bytes capacity. If the cache has blocks of \blw{} words, how many bits are required for the index field in the address division?
+    \begin{center}
+        \AMCnumericChoices{\idx}{sign=false,vertical=false,nozero=true,base=10,digits=1,scoreexact=1}
+    \end{center}
+\end{questionmultx}
+
+}
+
+%%%% Numeric Question with Python
+
+\begin{pycode}
+
+def mc_div(ddend, dsor, b, cycle):
+    dsor <<= b
+    quotient = 0
+    remainder = ddend
+    if cycle == 0 :
+        return  {'Quotient':quotient, 
+                 'Remainder':remainder, 
+                 'dsor':dsor}
+    for i in range(1,b+2): 
+        remainder = remainder - dsor
+        if remainder < 0:
+            remainder = remainder + dsor
+            quotient <<= 1
+        else :
+            quotient <<= 1
+            quotient += 1
+        dsor >>= 1
+        if i == cycle:
+            return  {'Quotient':quotient, 
+                     'Remainder':remainder, 
+                     'dsor':dsor}
+
+def div_q(reg, ddend, dsor, b, cycle, pts):
+    ans = mc_div(ddend, dsor, b, cycle)[reg]
+    bsize = b * 2 if (reg == 'dsor') else b
+    print("""
+    \\begin{questionmultx}{Division%s%d}
+    \\\\%s, Cycle %d
+    \\begin{center}
+    \\AMCnumericChoices{%d}{sign=false,vertical=true,base=2,digits=%d,scoreexact=%f}
+    \\end{center}
+    \\end{questionmultx}
+    """ %(reg, cycle, reg, cycle, ans, bsize, pts))
+
+\end{pycode}
+
+
+\element{divider}{
+
+\pyc{import random; dividend=random.randint(11, 14); divisor = random.randint(3, 5);}
+
+For the next question, considering a multi-cycle divider, divide \py{dividend} by \py{divisor}, indicating the value of the specified register at the end of the clock cycle. Assume that the inputs and results are represented with 4 bits, and give your answer in binary.
+
+\pyc{div_q('Remainder', dividend, divisor, 4, 3, 1)}
+
+}
+
+
+%%%% Open Question
+
+\element{asm}{
+\begin{question}{open-asm}
+ Implement the \texttt{int strlen(const char* str)} function in RISC-V assembly, following all necessary ABI conventions and without using pseudo-instructions. The function should return the length of the string.
+\AMCOpen{lineheight=0.6cm,lines=5}{
+\wrongchoice[0]{0}\scoring{0}
+\wrongchoice[1]{1}\scoring{1}
+\wrongchoice[2]{2}\scoring{2}
+\wrongchoice[3]{3}\scoring{3}
+\wrongchoice[4]{4}\scoring{4}
+\correctchoice[5]{5}\scoring{5}}
+\end{question}
+}
+
