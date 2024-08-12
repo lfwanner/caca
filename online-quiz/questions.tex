@@ -1,0 +1,65 @@
+\element{fp}{
+     \begin{questionmultx}{fp1}
+
+     How is the number 13.75 represented in half-precision floating-point notation?
+     \begin{center}
+     \AMCnumericChoices{19168}{sign=false,vertical=true,base=2,digits=16,scoreexact=2}
+     \end{center}
+     \end{questionmultx}
+ }
+
+ \element{fp}{
+     \begin{questionmultx}{fp2}
+     How is the number 22.5 represented in half-precision floating-point notation?
+     \begin{center}
+     \AMCnumericChoices{19872}{sign=false,vertical=true,base=2,digits=16,scoreexact=2}
+     \end{center}
+     \end{questionmultx}
+ }
+
+ \element{fp}{
+     \begin{questionmultx}{fp3}
+     How is the number 18.75 represented in half-precision floating-point notation?
+     \begin{center}
+     \AMCnumericChoices{19632}{sign=false,vertical=true,base=2,digits=16,scoreexact=2}
+     \end{center}
+     \end{questionmultx}
+ }
+
+ \element{fp}{
+     \begin{questionmultx}{fp4}
+     How is the number 26.5 represented in half-precision floating-point notation?
+     \begin{center}
+     \AMCnumericChoices{20128}{sign=false,vertical=true,base=2,digits=16,scoreexact=2}
+     \end{center}
+     \end{questionmultx}
+ }
+
+ \element{fp}{
+     \begin{questionmultx}{fp5}
+     How is the number 26.25 represented in half-precision floating-point notation?
+     \begin{center}
+     \AMCnumericChoices{20112}{sign=false,vertical=true,base=2,digits=16,scoreexact=2}
+     \end{center}
+     \end{questionmultx}
+ }
+
+ \element{fp-repr}{
+
+
+ \noindent Consider a half-precision floating-point representation using 16 bits with the following characteristics:
+ \begin{multicols}{2}
+ \begin{itemize}
+   \item Sign Bit (Bit 15)
+   \item 5-bit Exponent (Bits 14--10)
+   \item 10-bit Fractional Part (Bits 9--0)
+   \item Exponent bias equal to 15
+ \end{itemize}
+\end{multicols}
+
+\noindent This representation follows all the conventions of the IEEE 754 floating-point representations, including normalization, value conversion, representation of infinity and NaN, denormal numbers, etc. 
+
+ \shufflegroup{fp}
+ \insertgroup[1]{fp}
+
+ }

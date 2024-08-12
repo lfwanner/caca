@@ -1,0 +1,66 @@
+\documentclass[a4paper]{article}
+
+\usepackage[utf8x]{inputenc}
+\usepackage[brazil]{babel}
+\usepackage{fp}
+
+\usepackage[T1]{fontenc}
+\usepackage{csvsimple}
+\usepackage[box,completemulti,lang=EN,pdfform]{automultiplechoice}
+\geometry{hmargin=1.5cm,headheight=2cm,headsep=.3cm,footskip=1cm,top=2.5cm,bottom=2.5cm}
+\usepackage{fp}
+\usepackage{listings}
+\lstset{language=C, numbers=left, frame=single, basicstyle=\ttfamily}
+\usepackage{multirow}
+\usepackage{multicol}
+
+\usepackage{xcolor}
+
+%\def\AMCbeginQuestion#1#2{#2}
+
+
+\begin{document}
+
+\AMCrandomseed{1234}
+
+%\scoringDefaultM{mz = 1}
+%\scoringDefaultS{mz = 1}
+
+\AMCnumericOpts{scoreexact=1,scoreapprox=0.5}
+
+\setdefaultgroupmode{withoutreplacement}
+
+\setlength{\AMChorizAnswerSep}{3em plus 4em minus 2em}
+
+
+%\scoringDefaultM{mz = 1}
+%\scoringDefaultS{mz = 1}
+
+%\input{question-bank}
+\input{questions}
+
+
+\newcommand{\testn}{Example}
+
+\newcommand{\subject}{
+  \onecopy{1}{
+
+    \input{header.tex}
+
+
+
+
+    \vspace{1ex}
+
+
+
+    \insertgroup{fp-repr}
+
+    \AMCassociation{\id}
+  }
+}
+
+\csvreader[head to column names]{../students.csv}{}{\subject}
+
+
+\end{document}
